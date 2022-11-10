@@ -43,6 +43,7 @@ while q:
             q.append((day + 1, i, j - 1))
             box[i][j - 1] = 1
 
+# 아직 익지 않은 토마토가 있는지 검사
 finished = True
 for row in box:
     if 0 in row:
