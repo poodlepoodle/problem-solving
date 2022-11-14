@@ -2,54 +2,45 @@ import sys
 
 def input(): return sys.stdin.readline().rstrip()
 
-N, M = map(int, input().split())
+M, N, L = map(int, input().split())
 
-r, c, direction = map(int, input().split())
+places = list(map(int, input().split()))
+places.sort()
 
-# 북 - 동 - 남 - 서
-view_directions = ((-1, 0), (0, 1), (1, 0), (0, -1))
+animals = [tuple(map(int, input().split())) for _ in range(N)]
 
-# 빈 칸은 0, 벽은 1, 청소한 칸은 2
-maps = [list(map(int, input().split())) for _ in range(N)]
+# 사대의 갯수 : 10^5
+# 동물의 갯수 : 10^5
 
-answer = 0
+# 전략 1 : 모든 사대마다 사정거리 안에 있는 동물 체크 -> 10^10 -> 불가능
+# 전략 2 : 모든 동물마다 사대의 사정거리 안에 있는지 체크 -> 10^5 * (L - 동물의 y좌표) -> 일단 L 들어가는 데서 무조건 불가능
 
-while True:
-    cleaned = False
+# 직감 : 사대의 갯수나 동물의 갯수 중 하나만 logN으로 내리면 괜찮을 거 같은데... -> 이분 탐색?
 
-    # 현재 위치를 청소한다.
-    if maps[r][c] == 0:
-        maps[r][c] = 2
-        answer += 1
+count = 0
 
-    # 현재 위치에서 현재 방향을 기준으로 왼쪽방향부터 차례대로 탐색을 진행한다.
-    for i in range(4):
-        dr, dc = view_directions[(direction + 3 - i) % 4]
+for x, y in animals:
+    dx = L - y
 
-        # 왼쪽 방향에 아직 청소하지 않은 공간이 존재한다면,
-        if maps[r + dr][c + dc] == 0:
-            # 그 방향으로 회전한 다음
-            direction = (direction + 3 - i) % 4
-            # 한 칸을 전진하고
-            r, c = r + dr, c + dc
-            # 1번부터 진행한다.
-            cleaned = True
+    left = x - dx
+    right = x + dx
+
+    start = 0
+    end = M - 1
+    shoot = False
+
+    while start <= end:
+        middle = (start + end) // 2
+
+        if left <= places[middle] <= right:
+            shoot = True
             break
-        # 왼쪽 방향에 청소할 공간이 없다면,
-        else:
-            # 그 방향으로 회전하고 2번으로 돌아간다.
-            pass
+        elif places[middle] < left:
+            start = middle + 1
+        else: # right < places[middle]
+            end = middle - 1
 
-    # 네 방향 모두 청소가 이미 되어있거나 벽인 경우에는,
-    if not cleaned:
-        # 네 방향 모두 청소가 이미 되어있거나 벽이면서, 뒤쪽 방향이 벽이라 후진도 할 수 없는 경우에는
-        dr, dc = view_directions[(direction + 2) % 4]
-        if maps[r + dr][c + dc] == 1:
-            # 작동을 멈춘다.
-            break
-        # 그렇지 않은 경우,
-        else:
-            # 바라보는 방향을 유지한 채로 한 칸 후진을 하고 2번으로 돌아간다.
-            r, c = r + dr, c + dc
+    if shoot:
+        count += 1
 
-print(answer)
+print(count)
