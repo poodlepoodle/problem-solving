@@ -7,20 +7,18 @@ N = int(input())
 numbers = input().split()
 
 def compare(str1, str2):
-    i, j = 0, 0
+    max_len = max(len(str1), len(str2))
+    idx = 0
 
     while True:
-        if str1[i % len(str1)] > str2[j % len(str2)]:
-            return 1
-        elif str1[i % len(str1)] < str2[j % len(str2)]:
-            return -1
+        if str1[idx % len(str1)] > str2[idx % len(str2)]: return 1
+        elif str1[idx % len(str1)] < str2[idx % len(str2)]: return -1
 
-        if i >= 2 * len(str1) - 1 and j >= 2 * len(str2) - 1: break
+        if idx >= 2 * len(str1) - 1 and idx >= 2 * len(str2) - 1: break
         
-        i += 1
-        j += 1
+        idx += 1
     
-    # return 0
+    return 0
 
 for i in range(len(numbers)):
     for j in range(0, len(numbers) - i - 1):
