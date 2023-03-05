@@ -1,6 +1,5 @@
 from collections import deque
 import sys
-import pprint
 
 input = sys.stdin.readline
 
@@ -25,20 +24,18 @@ for _ in range(int(input())): # 테스트 케이스 <= 50
         
     q = deque([trie])
 
+    # 트라이 순회하며 *가 있으면서 자식이 2개 이상 있는 노드 찾기 -> inconsistent point
     while q:
         current = q.popleft()
         
-        if '*' in current and len(current) >= 2:
+        # print(current)
+        if len(current) >= 2 and '*' in current:
             consistency = False
             break
-        
-        print(current)
 
-        for key in current.keys():
-            q.append(current[key])
+        for key, value in current.items():
+            if key != '*':
+                q.append(value)
     
-
     if consistency: print('YES')
     else: print('NO')
-
-    # 여기까지 하는 데 12분 14초 소요
