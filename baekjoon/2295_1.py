@@ -10,7 +10,6 @@ N = int(input())
 numbers = [int(input()) for _ in range(N)]
 numbers.sort()
 
-answer = 0
 two_sums = set()
 
 for x in numbers:
