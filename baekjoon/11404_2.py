@@ -28,5 +28,10 @@ for k in range(N):
         for j in range(N):
             costs[i][j] = min(costs[i][j], costs[i][k] + costs[k][j])
 
+for i in range(N):
+    for j in range(N):
+        if costs[i][j] == int(1e9):
+            costs[i][j] = 0
+
 for row in costs:
     print(*row)
