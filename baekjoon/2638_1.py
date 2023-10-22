@@ -36,7 +36,7 @@ def bfs(air):
                 # 빈 공간일 경우
                 else:
                     if not visited[r + dr][c + dc]:
-                        visited[r + dr][c + dc] += 1
+                        visited[r + dr][c + dc] = 1
                         q.append((r + dr, c + dc))
 
     return visited
@@ -54,6 +54,7 @@ while True:
         air.append((0, c))
         air.append((N - 1, c))
 
+    # 1초마다 치즈가 녹는 시뮬레이션 (BFS) 수행
     visited = bfs(air)
 
     # for row in cheeze:
