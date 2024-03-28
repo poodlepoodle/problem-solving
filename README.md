@@ -2,12 +2,12 @@
 
 [![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=chammal97)](https://solved.ac/chammal97/)
 
-코딩테스트 준비 스터디 및 개인 공부로 풀이한 소스 코드들 정리하기 위한 목적
+코딩테스트 준비 및 개인 스터디로 풀이한 코드들을 정리하기 위한 목적
 
 ## 사용 언어
 
-- **python**
-- c++
+- python
+- javascript
 
 ## 문제 풀이 정리 노션
 
