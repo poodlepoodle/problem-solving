@@ -6,7 +6,7 @@
 
 ## 사용 언어
 
-- python
+- **python**
 - javascript
 
 ## 문제 풀이 정리 노션
